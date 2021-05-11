@@ -34,7 +34,7 @@ writeFile();
 const getPost = (id)=>{
     app.get('/',(req,res)=>{
         axios
-        .get("https://jsonplaceholder.typicode.com/posts/id")
+        .get(`https://jsonplaceholder.typicode.com/posts/${id}`)
         .then((response)=>{
             //console.log(response.data);
             res.json(response.data)
@@ -60,18 +60,37 @@ const getPostAsync = async (data) => {
   };
   getPostAsync();
 
+//-----------------------------------------------------------------------------
+
   //practice 
+
   //q1 
   const appendToFile = (data) => {
-    fs.appendFile("data.txt","third line",(err)=>{
+    fs.appendFile("data.txt",data,(err)=>{
        if (err) throw err;
-        console.log('the "third line" was appended to file')
+        console.log(`the ${data} was appended to file`)
     })
   };
   appendToFile();
-
+//--------------------------------------------------------------------------
   //q2
+  const copyFile = (fileName) => {
+    function callback(err) {
+        if (err) throw err;
+        console.log(`data.txt was copied to ${fileName}`);
+      }
+      
+      // destination.txt will be created or overwritten by default.
+      fs.copyFile('data.txt', fileName, callback);
+      
+      // By using COPYFILE_EXCL, the operation will fail if destination.txt exists.
+      fs.copyFile('source.txt', fileName, fs.constants.COPYFILE_EXCL, callback);
+  };
+  copyFile();
+//--------------------------------------------------------------------------
+//q3
 
+//--------------------------------------------------------------------------
 // to sure that server work
 app.get("/",(req,res)=>{
     res.send("hello");
