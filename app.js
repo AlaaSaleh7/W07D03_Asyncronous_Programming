@@ -63,7 +63,7 @@ const getPostAsync = async (data) => {
   //practice 
   //q1 
   const appendToFile = (data) => {
-    appendFile("data.txt","third line",(err)=>{
+    fs.appendFile("data.txt","third line",(err)=>{
        if (err) throw err;
         console.log('the "third line" was appended to file')
     })
